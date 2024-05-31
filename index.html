@@ -84,7 +84,7 @@
       popupAnchor: [1, -34]
     });
 
-    const electricCarsLayer = L.layerGroup().addTo(map);
+    const ElectriccarchargingStationsLayer = L.layerGroup().addTo(map);
 
     $.getJSON("SalfitCity.json", function(SC) {
       const goverLayer = L.geoJson(SC, {
@@ -107,7 +107,7 @@
       map.fitBounds(goverLayer.getBounds());
     });
 
-    $.getJSON("ElectricCar.json", function(EC) {
+    $.getJSON("ElectriccarchargingStations.json", function(EC) {
       L.geoJson(EC, {
         pointToLayer: function(feature, latlng) {
           var electricCarIcon = L.icon({
