@@ -78,7 +78,7 @@
     }).addTo(map);
 
     const electriccarIcon = L.icon({
-      iconUrl: 'Green.png',
+      iconUrl: 'blue.png',
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       popupAnchor: [1, -34]
@@ -111,7 +111,7 @@
       L.geoJson(EC, {
         pointToLayer: function(feature, latlng) {
           var electricCarIcon = L.icon({
-            iconUrl: 'Green.png',
+            iconUrl: 'blue.png',
             iconSize: [30, 30],
             iconAnchor: [16, 32],
             popupAnchor: [0, 0]
@@ -157,7 +157,7 @@
         const userLocation = e.latlng;
         const chargingStationLocation = L.latLng(32.082147, 35.178231); // إحداثيات محطة الشحن
         const chargingStationIcon = L.icon({
-      iconUrl: 'Green.png',
+      iconUrl: 'blue.png',
       iconSize: [30, 30],
       iconAnchor: [16, 32],
       popupAnchor: [0, 0]
