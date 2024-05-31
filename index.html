@@ -121,7 +121,7 @@
           return {
             fillColor: "",
             fillOpacity: 0.0,
-            color: "blue",
+            color: "",
             weight: 1.5,
             opacity: 0.7
           };
@@ -166,13 +166,14 @@
         outsideMapBoundsMsg: "You seem located outside the boundaries of the map"
       },
       locateOptions: {
-        maxZoom: 25, // Change this to your preferred zoom level
+        maxZoom: 20, // Set higher zoom level for more detail
         enableHighAccuracy: true,
         maximumAge: 10000,
         timeout: 10000
       }
     }).addTo(map).on('locationfound', function(e) {
       const userLocation = e.latlng;
+      L.marker(userLocation).addTo(map).bindPopup("You are here").openPopup();
       let nearestMarker = null;
       let nearestDistance = Infinity;
 
@@ -187,7 +188,7 @@
       if (nearestMarker) {
         const line = L.polyline([userLocation, nearestMarker.getLatLng()], { color: 'red' }).addTo(map);
         map.fitBounds(line.getBounds());
-        map.setView(userLocation, 18); // Change this to your preferred zoom level
+        map.setView(userLocation, 20); // Higher zoom level
       }
     });
 
