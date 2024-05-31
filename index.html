@@ -51,19 +51,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
   <script>
-    const mapOptions = {
+      const mapOptions = {
       zoomSnap: 0.5,
-      center: [32.08232086692995, 35.177037175131],
-      zoom: 30
+      center: [32.08204972125716, 35.17704914292061],
+      zoom: 20,
     };
 
     const map = L.map("map", mapOptions);
 
-    const baseMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       maxZoom: 19
     }).addTo(map);
-
+    
     L.control.scale({
       position: 'bottomright',
       metric: true,
