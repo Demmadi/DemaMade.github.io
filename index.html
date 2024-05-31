@@ -120,7 +120,7 @@
         },
         onEachFeature: function(feature, layer) {
           layer.on('click', function(e) {
-            alert("Capacity: " + feature.properties.Capacity);
+            alert("Capacity: " + feature.properties.Capacity + "\nLocation: " + feature.properties.name);
           });
         }
       }).addTo(electricCarsLayer);
