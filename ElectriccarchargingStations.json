@@ -1,0 +1,4 @@
+{
+  "type" : "FeatureCollection",
+  "features" : [{"type":"Feature","id":0,"geometry":{"type":"Point","coordinates":[35.178231000000039,32.082147000000077]},"properties":{"FID":0,"num":1,"Y_point":32.082146999999999,"X_point":35.178230999999997,"name":"محطة شحن سيارات كهرباء","NEAR_FID":6,"NEAR_DIST":3.47131099506e-05,"Capacity":"Fast Charging 24 KW"}}]
+}
