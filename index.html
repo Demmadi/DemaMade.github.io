@@ -156,12 +156,27 @@
       map.on('locationfound', function(e) {
         const userLocation = e.latlng;
         const chargingStationLocation = L.latLng(32.082147, 35.178231); // إحداثيات محطة الشحن
+
+        // إنشاء رمز مخصص لموقع المحطة
+        const chargingStationIcon = L.icon({
+          iconUrl: 'Green.png', // تغيير charging-station-icon.png بمسار صورة الرمز الخاص بمحطة الشحن
+          iconSize: [30, 30],
+          iconAnchor: [15, 15]
+        });
+
+        // إضافة علامة لموقع المحطة باستخدام الرمز المخصص
+        L.marker(chargingStationLocation, { icon: chargingStationIcon }).addTo(map);
+
+        // إضافة مسار بين موقع المستخدم وموقع المحطة
         L.Routing.control({
           waypoints: [
             userLocation,
             chargingStationLocation
           ],
-          routeWhileDragging: true
+          routeWhileDragging: true,
+          lineOptions: {
+          styles: [{color: 'blue', opacity: 0 }],
+          addWaypoints: false // عدم إظهار نقاط الوجهات على الخريطة
         }).addTo(map);
       });
       map.locate({ setView: true, maxZoom: 16 }); // يبدأ عملية تحديد الموقع للمستخدم
@@ -207,3 +222,4 @@
 </body>
 
 </html>
+
