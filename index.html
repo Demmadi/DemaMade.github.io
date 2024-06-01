@@ -166,7 +166,8 @@
         // إضافة محطة الشحن كنقطة على الخريطة باستخدام الأيقونة المخصصة
         const marker = L.marker(chargingStationLocation, { icon: chargingStationIcon })
           .addTo(map)
-          .bindPopup("Show the destination for a car charging station");
+          .bindPopup("Show the destination for a car charging station")
+          .openPopup();
 
         // عند النقر على الأيقونة يتم فتح النافذة المنبثقة
         marker.on('click', function () {
