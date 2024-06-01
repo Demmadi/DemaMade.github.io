@@ -164,10 +164,14 @@
         });
 
         // إضافة محطة الشحن كنقطة على الخريطة باستخدام الأيقونة المخصصة
-        L.marker(chargingStationLocation, { icon: chargingStationIcon })
+        const marker = L.marker(chargingStationLocation, { icon: chargingStationIcon })
           .addTo(map)
-          .bindPopup("Show the destination for a car charging station")
-          .openPopup();
+          .bindPopup("Show the destination for a car charging station");
+
+        // عند النقر على الأيقونة يتم فتح النافذة المنبثقة
+        marker.on('click', function () {
+          marker.openPopup();
+        });
 
         // تحديد مسار السير مع إظهار محطة الشحن على الخريطة
         L.Routing.control({
