@@ -165,7 +165,10 @@
 
     // إضافة محطة الشحن كنقطة على الخريطة باستخدام الأيقونة المخصصة
     L.marker(chargingStationLocation, { icon: chargingStationIcon }).addTo(map);
-
+      .addTo(map)
+      .bindPopup("Show the destination for a car charging station")
+      .openPopup();
+      
     // تحديد مسار السير مع إظهار محطة الشحن على الخريطة
     L.Routing.control({
       waypoints: [
