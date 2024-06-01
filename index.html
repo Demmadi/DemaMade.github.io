@@ -157,33 +157,32 @@
         const userLocation = e.latlng;
         const chargingStationLocation = L.latLng(32.082147, 35.178231); // إحداثيات محطة الشحن
         const chargingStationIcon = L.icon({
-      iconUrl: 'blue.png',
-      iconSize: [30, 30],
-      iconAnchor: [16, 32],
-      popupAnchor: [0, 0]
-    });
+          iconUrl: 'blue.png',
+          iconSize: [30, 30],
+          iconAnchor: [16, 32],
+          popupAnchor: [0, 0]
+        });
 
-    // إضافة محطة الشحن كنقطة على الخريطة باستخدام الأيقونة المخصصة
-    L.marker(chargingStationLocation, { icon: chargingStationIcon }).addTo(map);
-      .addTo(map)
-      .bindPopup("Show the destination for a car charging station")
-      .openPopup();
-      
-    // تحديد مسار السير مع إظهار محطة الشحن على الخريطة
-    L.Routing.control({
-      waypoints: [
-        userLocation,
-        chargingStationLocation
-      ],
-      routeWhileDragging: true,
-      lineOptions: {
-         styles: [{color: 'blue', opacity: 0.7, weight: 5}]
+        // إضافة محطة الشحن كنقطة على الخريطة باستخدام الأيقونة المخصصة
+        L.marker(chargingStationLocation, { icon: chargingStationIcon })
+          .addTo(map)
+          .bindPopup("Show the destination for a car charging station")
+          .openPopup();
+
+        // تحديد مسار السير مع إظهار محطة الشحن على الخريطة
+        L.Routing.control({
+          waypoints: [
+            userLocation,
+            chargingStationLocation
+          ],
+          routeWhileDragging: true,
+          lineOptions: {
+            styles: [{ color: 'blue', opacity: 0.7, weight: 5 }]
           },
-  
-      waypointIcons: {
-        start: null,
-        end: chargingStationIcon 
-      }
+          waypointIcons: {
+            start: null,
+            end: chargingStationIcon
+          }
         }).addTo(map);
       });
       map.locate({ setView: true, maxZoom: 16 }); // يبدأ عملية تحديد الموقع للمستخدم
