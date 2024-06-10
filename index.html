@@ -61,7 +61,7 @@
   <div id="left-button" class="nav-button"><i class="fas fa-arrow-left"></i></div>
   <div id="right-button" class="nav-button"><i class="fas fa-arrow-right"></i></div>
   <div id="select-station-button" class="nav-button"><i class="fas fa-map-pin"></i></div>
-  
+
   <!-- Image element -->
   <img id="charging-station-image" src="E.png" alt="Charging Station" width="200" height="200">
 
@@ -132,6 +132,7 @@
         },
         onEachFeature: function(feature, layer) {
           layer.on('click', function(e) {
+            selectChargingStation(feature); // استدعاء الدالة عند النقر على المحطة
             alert("Capacity: " + feature.properties.Capacity + "\nLocation: " + feature.properties.name);
           });
         }
@@ -152,12 +153,27 @@
       }).addTo(map);
     });
 
-    function selectChargingStation() {
-      // Hide the map while selecting the charging station
-      document.getElementById('map').style.display = 'none';
-      
-      // Show the charging station image
-      document.getElementById('charging-station-image').style.display = 'block';
+    function panLeft() {
+      const currentCenter = map.getCenter();
+      const newCenter = L.latLng(currentCenter.lat, currentCenter.lng - 0.05);
+      map.panTo(newCenter);
+    }
+
+    function panRight() {
+      const currentCenter = map.getCenter();
+      const newCenter = L.latLng(currentCenter.lat, currentCenter.lng + 0.05);
+      map.panTo(newCenter);
+    }
+
+    function selectChargingStation(feature) {
+      // التحقق من اسم المحطة
+      if (feature.properties.name === "E") {
+        // عرض الصورة عند النقر على محطة الشحن
+        document.getElementById('charging-station-image').style.display = 'block';
+      } else {
+        // إذا كان اسم المحطة ليس "E"، يجب إخفاء الصورة
+        document.getElementById('charging-station-image').style.display = 'none';
+      }
     }
 
     const overlayMaps = {
@@ -171,7 +187,7 @@
       drawCircle: false,
       follow: true,
       setView: true,
-      keepCurrentZoomLevel: false,
+      keepCurrentZoomLevel : false,
       markerStyle: {
         weight: 1,
         opacity: 0.8,
@@ -196,26 +212,6 @@
     document.getElementById('left-button').addEventListener('click', panLeft);
     document.getElementById('right-button').addEventListener('click', panRight);
     document.getElementById('select-station-button').addEventListener('click', selectChargingStation);
-
-    function panLeft() {
-      const currentCenter = map.getCenter();
-      const newCenter = L.latLng(currentCenter.lat, currentCenter.lng - 0.05);
-      map.panTo(newCenter);
-    }
-
-    function panRight() {
-      const currentCenter = map.getCenter();
-      const newCenter = L.latLng(currentCenter.lat, currentCenter.lng + 0.05);
-      map.panTo(newCenter);
-    }
-
-    function selectChargingStation() {
-      // Hide the map while selecting the charging station
-      document.getElementById('map').style.display = 'none';
-      
-      // Show the charging station image
-      document.getElementById('charging-station-image').style.display = 'block';
-    }
   </script>
 </body>
 
