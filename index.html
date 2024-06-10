@@ -44,15 +44,6 @@
       top: 10px;
       right: 10px;
     }
-
-    /* Hide image by default */
-    #charging-station-image {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
   </style>
 </head>
 
@@ -61,9 +52,6 @@
   <div id="left-button" class="nav-button"><i class="fas fa-arrow-left"></i></div>
   <div id="right-button" class="nav-button"><i class="fas fa-arrow-right"></i></div>
   <div id="select-station-button" class="nav-button"><i class="fas fa-map-pin"></i></div>
-
-  <!-- Image element -->
-  <img id="charging-station-image" src="E.jpeg" alt="Charging Station" width="200" height="200">
 
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -132,7 +120,6 @@
         },
         onEachFeature: function(feature, layer) {
           layer.on('click', function(e) {
-            selectChargingStation(feature); // استدعاء الدالة عند النقر على المحطة
             alert("Capacity: " + feature.properties.Capacity + "\nLocation: " + feature.properties.name);
           });
         }
@@ -165,20 +152,51 @@
       map.panTo(newCenter);
     }
 
-    function selectChargingStation(feature) {
-      // التحقق من اسم المحطة
-      if (feature.properties.name === "E.jpeg") {
-        // عرض الصورة عند النقر على محطة الشحن
-        document.getElementById('charging-station-image').style.display = 'block';
-      } else {
-        // إذا كان اسم المحطة ليس "E"، يجب إخفاء الصورة
-        document.getElementById('charging-station-image').style.display = 'none';
-      }
+    function selectChargingStation() {
+      map.on('locationfound', function(e) {
+        const userLocation = e.latlng;
+        const chargingStationLocation = L.latLng(32.082147, 35.178231); // إحداثيات محطة الشحن
+        const chargingStationIcon = L.icon({
+          iconUrl: 'blue.png',
+          iconSize: [30, 30],
+          iconAnchor: [16, 32],
+          popupAnchor: [0, 0]
+        });
+
+        // إضافة محطة الشحن كنقطة على الخريطة باستخدام الأيقونة المخصصة
+        const marker = L.marker(chargingStationLocation, { icon: chargingStationIcon })
+          .addTo(map)
+          .bindPopup("Show the destination for a car charging station")
+          .openPopup();
+
+        // عند النقر على الأيقونة يتم فتح النافذة المنبثقة
+        marker.on('click', function () {
+          marker.openPopup();
+        });
+
+        // تحديد مسار السير مع إظهار محطة الشحن على الخريطة
+        L.Routing.control({
+          waypoints: [
+            userLocation,
+            chargingStationLocation
+          ],
+          routeWhileDragging: true,
+          lineOptions: {
+            styles: [{ color: 'blue', opacity: 0.7, weight: 5 }]
+          },
+          waypointIcons: {
+            start: null,
+            end: chargingStationIcon
+          }
+        }).addTo(map);
+      });
+      map.locate({ setView: true, maxZoom: 16 }); // يبدأ عملية تحديد الموقع للمستخدم
     }
 
     const overlayMaps = {
       "Electric Cars": electricCarsLayer
     };
+
     L.control.layers(null, overlayMaps, { position: 'topleft' }).addTo(map);
 
     L.control.locate({
@@ -186,7 +204,7 @@
       drawCircle: false,
       follow: true,
       setView: true,
-      keepCurrentZoomLevel : false,
+      keepCurrentZoomLevel: false,
       markerStyle: {
         weight: 1,
         opacity: 0.8,
@@ -210,13 +228,8 @@
 
     document.getElementById('left-button').addEventListener('click', panLeft);
     document.getElementById('right-button').addEventListener('click', panRight);
-    // يجب أن تمرر الدالة selectChargingStation كوالم لتحقيق النقر على زر اختيار محطة الشحن
-    document.getElementById('select-station-button').addEventListener('click', function() {
-      // هنا يمكنك تمرير أي بيانات إضافية إذا لزم الأمر
-      selectChargingStation(/* أي بيانات إضافية إذا لزم الأمر */);
-    });
+    document.getElementById('select-station-button').addEventListener('click', selectChargingStation);
   </script>
 </body>
 
 </html>
-
