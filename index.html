@@ -63,7 +63,7 @@
   <div id="select-station-button" class="nav-button"><i class="fas fa-map-pin"></i></div>
 
   <!-- Image element -->
-  <img id="charging-station-image" src="E.png" alt="Charging Station" width="200" height="200">
+  <img id="charging-station-image" src="E.jpeg" alt="Charging Station" width="200" height="200">
 
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -179,7 +179,6 @@
     const overlayMaps = {
       "Electric Cars": electricCarsLayer
     };
-
     L.control.layers(null, overlayMaps, { position: 'topleft' }).addTo(map);
 
     L.control.locate({
@@ -211,7 +210,11 @@
 
     document.getElementById('left-button').addEventListener('click', panLeft);
     document.getElementById('right-button').addEventListener('click', panRight);
-    document.getElementById('select-station-button').addEventListener('click', selectChargingStation);
+    // يجب أن تمرر الدالة selectChargingStation كوالم لتحقيق النقر على زر اختيار محطة الشحن
+    document.getElementById('select-station-button').addEventListener('click', function() {
+      // هنا يمكنك تمرير أي بيانات إضافية إذا لزم الأمر
+      selectChargingStation(/* أي بيانات إضافية إذا لزم الأمر */);
+    });
   </script>
 </body>
 
