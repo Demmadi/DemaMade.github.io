@@ -197,7 +197,7 @@
     document.getElementById('right-button').addEventListener('click', panRight);
     document.getElementById('select-station-button').addEventListener('click', selectChargingStation);
 
-       function panLeft() {
+    function panLeft() {
       const currentCenter = map.getCenter();
       const newCenter = L.latLng(currentCenter.lat, currentCenter.lng - 0.05);
       map.panTo(newCenter);
@@ -216,43 +216,6 @@
       // Show the charging station image
       document.getElementById('charging-station-image').style.display = 'block';
     }
-
-    const overlayMaps = {
-      "Electric Cars": electricCarsLayer
-    };
-
-    L.control.layers(null, overlayMaps, { position: 'topleft' }).addTo(map);
-
-    L.control.locate({
-      position: 'topleft',
-      drawCircle: false,
-      follow: true,
-      setView: true,
-      keepCurrentZoomLevel: false,
-      markerStyle: {
-        weight: 1,
-        opacity: 0.8,
-        fillOpacity: 0.8
-      },
-      icon: 'fa fa-location-arrow',
-      metric: true,
-      strings: {
-        title: "Show location",
-        popup: "You are within {distance} {unit} from this point",
-        outsideMapBoundsMsg: "You seem located outside the boundaries of the map"
-      },
-      locateOptions: {
-        maxZoom: 40,
-        initialZoomLevel: 40,
-        enableHighAccuracy: true,
-        maximumAge: 10000,
-        timeout: 10000
-      }
-    }).addTo(map);
-
-    document.getElementById('left-button').addEventListener('click', panLeft);
-    document.getElementById('right-button').addEventListener('click', panRight);
-    document.getElementById('select-station-button').addEventListener('click', selectChargingStation);
   </script>
 </body>
 
